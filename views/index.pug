@@ -1,0 +1,88 @@
+doctype html
+html(lang='')
+  head
+    title Medico-Chain
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    link(href='stylesheets/layout.css', rel='stylesheet', type='text/css', media='all')
+    link(href="https://bootswatch.com/4/flatly/bootstrap.min.css",rel='stylesheet',type='text/css')
+    script(src='javascripts/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+    
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css",type="text/css")
+    script(src='https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js')
+
+    script(src="javascripts/myjs.js")
+  body#top
+
+ 
+    .bgded.overlay.light(style="background-image:url('images/back.jpg');")
+      .wrapper.row1
+
+        header#header.hoc.clear
+          #logo.fl_left
+            h1
+              a(href='index.html') Medico-Chain
+          nav#mainav.fl_right
+            ul.clear
+              li.active
+                a(href='index.html') Home
+             
+              li
+                a(href='#') About
+                //
+                  <ul>
+                  <li><a href="pages/gallery.html">Gallery</a></li>
+                  <li><a href="pages/full-width.html">Full Width</a></li>
+                  <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
+                  <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
+                  <li><a href="pages/basic-grid.html">Basic Grid</a></li>
+                  </ul>
+              li
+                a.drop(href='#') Login
+                ul
+                  li
+                    a#patient_log(href='#') Patient
+                  li
+                    a#doctor_log(href="#") Doctor
+                      
+                 
+              li
+                a(href='#') Link Text
+              li
+                a(href='#') Link Text
+      #pageintro.hoc.clear
+        article
+          h3.heading
+            | A Decentralized platform
+            br
+            |         for easy access of Electronic Health Records
+          p Please register below as per your designation
+          .well
+            a.btn#regis_patient(href='/new/patient') Register as a Patient
+            | &nbsp&nbsp&nbsp
+            a.btn#regis_doc(href='/new/doctor') Register as a Doctor
+    .wrapper.row4
+      footer#footer.hoc.clear
+        article.one_quarter.first
+          h6.heading Sitemap
+          p
+            a(href='#') Home
+          p
+            a(href='#') About
+          p
+            a(href='#') Contacts
+          p
+            a(href='#') Privacy Policy
+    .wrapper.row5
+      #copyright.hoc.clear
+        p.fl_left
+          | Copyright © 2018 - All Rights Reserved - 
+          a(href='/') Medico-Chain
+    a#backtotop(href='#top')
+      i.fa.fa-chevron-up
+
+    script(src='javascripts/jquery.backtotop.js')
+    script(src='javascripts/jquery.mobilemenu.js')
+    
+

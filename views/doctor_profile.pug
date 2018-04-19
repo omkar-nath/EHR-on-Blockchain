@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    title Medico-Chain
+    meta(charset='utf-8')
+
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/2.3.1/jsencrypt.js")
+    link(href='stylesheets/layout.css', rel='stylesheet', type='text/css', media='all')
+    link(href="https://bootswatch.com/4/flatly/bootstrap.min.css",rel='stylesheet',type='text/css')
+    script(src='http://localhost:3000/javascripts/jquery.min.js')
+    script(src='https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js')
+    
+    
+
+    
+    script(src='https://wzrd.in/standalone/buffer')
+    script(src='https://unpkg.com/ipfs-api@9.0.0/dist/index.js', integrity='sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB', crossorigin='anonymous')
+
+
+   
+    
+    
+    script(src="http://localhost:3000/javascripts/myjs.js")
+    script(src='http://localhost:3000/jahttp://localhost:3000/vascripts/jquery.backtotop.js')
+    script(src='http://localhost:3000/javascripts/jquery.mobilemenu.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+body
+ .form-group
+  label(for='exampleInputEmail1') Enter Patient's username
+  input#patient_username.form-control(aria-describedby='emailHelp', placeholder='Enter username', type='email')
+  small#emailHelp.form-text.text-muted Enter the username of patient to ask permission in order to upload his/her EHR on blockchain
+button.btn.btn-primary#ask(type='button') Ask Permission
+br
+.form-group
+  label(for='exampleInputEmail1') Enter Patient's username
+  input#patient_user.form-control(aria-describedby='emailHelp', placeholder='Enter username', type='email')
+  small#emailHelp.form-text.text-muted Enter the username of patient to check accessbility status
+button.btn.btn-primary#check_status(type='button') Check status

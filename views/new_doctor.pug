@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    title Medico-Chain
+    meta(charset='utf-8')
+    script(src='https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    link(href='stylesheets/layout.css', rel='stylesheet', type='text/css', media='all')
+    link(href="https://bootswatch.com/4/flatly/bootstrap.min.css",rel='stylesheet',type='text/css')
+    script(src='http://localhost:3000/javascripts/jquery.min.js')
+   
+    
+    
+    script(src="http://localhost:3000/javascripts/myjs.js")
+    script(src='http://localhost:3000/javascripts/jquery.backtotop.js')
+    script(src='http://localhost:3000/javascripts/jquery.mobilemenu.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+  body(style="text-align:center")
+  
+    form
+  fieldset
+  
+    .form-group.row
+     
+    .form-group
+      label(for='Email1') 
+      input#InputEmail_d.form-control(aria-describedby='emailHelp', placeholder='Enter email', type='email')
+      small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+    .form-group
+      label(for='adharId') 
+      input#InputAdhar_d.form-control(placeholder='Enter adhar number', type='password')
+  button.btn.btn-primary#d_reg(type='submit') Register me!
+  
+  
+    script(src='javascripts/jquery.backtotop.js')
+    script(src='javascripts/jquery.mobilemenu.js')
