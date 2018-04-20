@@ -21,6 +21,133 @@ $(document).ready(function()
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "email_id",
+				"type": "string"
+			},
+			{
+				"name": "adhar_id",
+				"type": "uint256"
+			},
+			{
+				"name": "username",
+				"type": "bytes32"
+			},
+			{
+				"name": "public_key",
+				"type": "string"
+			}
+		],
+		"name": "setDoctor",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "patient",
+				"type": "address"
+			},
+			{
+				"name": "doctor",
+				"type": "address"
+			},
+			{
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"name": "setipfs",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "email_id",
+				"type": "string"
+			},
+			{
+				"name": "adhar_id",
+				"type": "uint256"
+			},
+			{
+				"name": "username",
+				"type": "bytes32"
+			},
+			{
+				"name": "public_key",
+				"type": "string"
+			}
+		],
+		"name": "setPatient",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "doc_address",
+				"type": "address"
+			}
+		],
+		"name": "checkstatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "patient_address",
+				"type": "address"
+			}
+		],
+		"name": "checkstatusdoc",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -28,7 +155,7 @@ $(document).ready(function()
 				"type": "bytes32"
 			}
 		],
-		"name": "PatientAddressMap",
+		"name": "DoctorAddressMap",
 		"outputs": [
 			{
 				"name": "",
@@ -45,17 +172,63 @@ $(document).ready(function()
 			{
 				"name": "",
 				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "address"
 			}
 		],
-		"name": "PatientStruct",
+		"name": "DoctorPatientipfsHash",
 		"outputs": [
 			{
-				"name": "email_p",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "DoctorPublicKey",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "DoctorStruct",
+		"outputs": [
+			{
+				"name": "email_d",
 				"type": "string"
 			},
 			{
-				"name": "adhar_id",
+				"name": "adhar_id_d",
 				"type": "uint256"
+			},
+			{
+				"name": "public_key",
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -89,25 +262,6 @@ $(document).ready(function()
 		"constant": true,
 		"inputs": [
 			{
-				"name": "patient_address",
-				"type": "address"
-			}
-		],
-		"name": "checkstatusdoc",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
 				"name": "username",
 				"type": "bytes32"
 			}
@@ -131,7 +285,7 @@ $(document).ready(function()
 				"type": "bytes32"
 			}
 		],
-		"name": "getPatientEmail",
+		"name": "getDoctorPublicKey",
 		"outputs": [
 			{
 				"name": "",
@@ -143,57 +297,26 @@ $(document).ready(function()
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
-				"name": "email_id",
-				"type": "string"
+				"name": "patient",
+				"type": "address"
 			},
 			{
-				"name": "adhar_id",
-				"type": "uint256"
-			},
-			{
-				"name": "username",
-				"type": "bytes32"
+				"name": "doctor",
+				"type": "address"
 			}
 		],
-		"name": "setDoctor",
+		"name": "getencryptedHash",
 		"outputs": [
 			{
-				"name": "success",
-				"type": "bool"
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "email_id",
-				"type": "string"
-			},
-			{
-				"name": "adhar_id",
-				"type": "uint256"
-			},
-			{
-				"name": "username",
-				"type": "bytes32"
-			}
-		],
-		"name": "setPatient",
-		"outputs": [
-			{
-				"name": "success",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -242,15 +365,34 @@ $(document).ready(function()
 		"constant": true,
 		"inputs": [
 			{
-				"name": "doc_address",
-				"type": "address"
+				"name": "username",
+				"type": "bytes32"
 			}
 		],
-		"name": "checkstatus",
+		"name": "getPatientEmail",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bool"
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "username",
+				"type": "bytes32"
+			}
+		],
+		"name": "getPatientPublicKey",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -265,7 +407,7 @@ $(document).ready(function()
 				"type": "bytes32"
 			}
 		],
-		"name": "DoctorAddressMap",
+		"name": "PatientAddressMap",
 		"outputs": [
 			{
 				"name": "",
@@ -281,18 +423,41 @@ $(document).ready(function()
 		"inputs": [
 			{
 				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "PatientPublicKey",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "DoctorStruct",
+		"name": "PatientStruct",
 		"outputs": [
 			{
-				"name": "email_d",
+				"name": "email_p",
 				"type": "string"
 			},
 			{
-				"name": "adhar_id_d",
+				"name": "adhar_id",
 				"type": "uint256"
+			},
+			{
+				"name": "public_key",
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -320,7 +485,7 @@ $(document).ready(function()
 	}
 ];
 MedicoContract=web3.eth.contract(abi);
-Medical=MedicoContract.at("0xe09f0ac188ce584acf6e90262e0b05e0031372e6");
+Medical=MedicoContract.at("0xd12efe7a45848b47a8ebc09519aba451318022b3");
 
  if(web3.eth.accounts[0]==undefined)
    {

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
-
+const ecies=require('eth-ecies');
 router.get('/', function(req, res, next) {
   res.render('doctor_profile');
 });
@@ -45,6 +45,31 @@ router.post('/sendmail',function(req,res,next)
                 success: true,
                 msg: msg
 });
+    }
+})
+router.post('/encryptHash',function(req,res,next)
+{
+  if (req.xhr || req.accepts('json,html') === 'json')
+    {
+      var public_key=req.body.pub_key;
+      var ipfsHash=req.body.msg;
+      //console.log(public_key);
+      //console.log(ipfsHash);
+      let userPublicKey = new Buffer(public_key, 'hex');
+    console.log(userPublicKey);
+    let bufferData = new Buffer(ipfsHash);
+
+    let encryptedData = ecies.encrypt(userPublicKey, bufferData);
+    console.log('Encrypted hash is :');
+    console.log(encryptedData.toString('base64'));
+
+   let encrypted_data=encryptedData.toString('base64');
+
+
+      res.json({
+         success:true,
+         msg:encrypted_data
+      });
     }
 })
 module.exports = router;

@@ -9,280 +9,493 @@ $(document).ready(function() {
 
 
 
-    abi = [{
-            "constant": false,
-            "inputs": [{
+    abi = [
+    {
+        "constant": false,
+        "inputs": [
+            {
                 "name": "doc_address",
                 "type": "address"
-            }],
-            "name": "grantAccess",
-            "outputs": [{
+            }
+        ],
+        "name": "grantAccess",
+        "outputs": [
+            {
                 "name": "",
                 "type": "bool"
-            }],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "",
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "email_id",
+                "type": "string"
+            },
+            {
+                "name": "adhar_id",
+                "type": "uint256"
+            },
+            {
+                "name": "username",
                 "type": "bytes32"
-            }],
-            "name": "PatientAddressMap",
-            "outputs": [{
+            },
+            {
+                "name": "public_key",
+                "type": "string"
+            }
+        ],
+        "name": "setDoctor",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "patient",
+                "type": "address"
+            },
+            {
+                "name": "doctor",
+                "type": "address"
+            },
+            {
+                "name": "ipfsHash",
+                "type": "string"
+            }
+        ],
+        "name": "setipfs",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "email_id",
+                "type": "string"
+            },
+            {
+                "name": "adhar_id",
+                "type": "uint256"
+            },
+            {
+                "name": "username",
+                "type": "bytes32"
+            },
+            {
+                "name": "public_key",
+                "type": "string"
+            }
+        ],
+        "name": "setPatient",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "doc_address",
+                "type": "address"
+            }
+        ],
+        "name": "checkstatus",
+        "outputs": [
+            {
                 "name": "",
-                "type": "address"
-            }],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "",
-                "type": "address"
-            }],
-            "name": "PatientStruct",
-            "outputs": [{
-                    "name": "email_p",
-                    "type": "string"
-                },
-                {
-                    "name": "adhar_id",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "doctor_add",
-                "type": "address"
-            }],
-            "name": "getDoctor",
-            "outputs": [{
-                    "name": "email_d",
-                    "type": "string"
-                },
-                {
-                    "name": "adhar_id_d",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
                 "name": "patient_address",
                 "type": "address"
-            }],
-            "name": "checkstatusdoc",
-            "outputs": [{
+            }
+        ],
+        "name": "checkstatusdoc",
+        "outputs": [
+            {
                 "name": "",
                 "type": "bool"
-            }],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "username",
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
                 "type": "bytes32"
-            }],
-            "name": "getDoctorAddress",
-            "outputs": [{
+            }
+        ],
+        "name": "DoctorAddressMap",
+        "outputs": [
+            {
                 "name": "",
                 "type": "address"
-            }],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "username",
-                "type": "bytes32"
-            }],
-            "name": "getPatientEmail",
-            "outputs": [{
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "address"
+            },
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "DoctorPatientipfsHash",
+        "outputs": [
+            {
                 "name": "",
                 "type": "string"
-            }],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [{
-                    "name": "email_id",
-                    "type": "string"
-                },
-                {
-                    "name": "adhar_id",
-                    "type": "uint256"
-                },
-                {
-                    "name": "username",
-                    "type": "bytes32"
-                }
-            ],
-            "name": "setDoctor",
-            "outputs": [{
-                "name": "success",
-                "type": "bool"
-            }],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [{
-                    "name": "email_id",
-                    "type": "string"
-                },
-                {
-                    "name": "adhar_id",
-                    "type": "uint256"
-                },
-                {
-                    "name": "username",
-                    "type": "bytes32"
-                }
-            ],
-            "name": "setPatient",
-            "outputs": [{
-                "name": "success",
-                "type": "bool"
-            }],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "name": "DoctorPublicKey",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "DoctorStruct",
+        "outputs": [
+            {
+                "name": "email_d",
+                "type": "string"
+            },
+            {
+                "name": "adhar_id_d",
+                "type": "uint256"
+            },
+            {
+                "name": "public_key",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "doctor_add",
+                "type": "address"
+            }
+        ],
+        "name": "getDoctor",
+        "outputs": [
+            {
+                "name": "email_d",
+                "type": "string"
+            },
+            {
+                "name": "adhar_id_d",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "username",
+                "type": "bytes32"
+            }
+        ],
+        "name": "getDoctorAddress",
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "username",
+                "type": "bytes32"
+            }
+        ],
+        "name": "getDoctorPublicKey",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "patient",
+                "type": "address"
+            },
+            {
+                "name": "doctor",
+                "type": "address"
+            }
+        ],
+        "name": "getencryptedHash",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
                 "name": "patient_add",
                 "type": "address"
-            }],
-            "name": "getPatient",
-            "outputs": [{
-                    "name": "email_p",
-                    "type": "string"
-                },
-                {
-                    "name": "adhar_id",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
+            }
+        ],
+        "name": "getPatient",
+        "outputs": [
+            {
+                "name": "email_p",
+                "type": "string"
+            },
+            {
+                "name": "adhar_id",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
                 "name": "username",
                 "type": "bytes32"
-            }],
-            "name": "getPatientAddress",
-            "outputs": [{
+            }
+        ],
+        "name": "getPatientAddress",
+        "outputs": [
+            {
                 "name": "",
                 "type": "address"
-            }],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "doc_address",
-                "type": "address"
-            }],
-            "name": "checkstatus",
-            "outputs": [{
-                "name": "",
-                "type": "bool"
-            }],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "",
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "username",
                 "type": "bytes32"
-            }],
-            "name": "DoctorAddressMap",
-            "outputs": [{
-                "name": "",
-                "type": "address"
-            }],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "",
-                "type": "address"
-            }],
-            "name": "DoctorStruct",
-            "outputs": [{
-                    "name": "email_d",
-                    "type": "string"
-                },
-                {
-                    "name": "adhar_id_d",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [{
-                "name": "",
-                "type": "bytes32"
-            }],
-            "name": "usernameEmail",
-            "outputs": [{
+            }
+        ],
+        "name": "getPatientEmail",
+        "outputs": [
+            {
                 "name": "",
                 "type": "string"
-            }],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ];
-    MedicoContract = web3.eth.contract(abi);
-    Medical = MedicoContract.at("0xe09f0ac188ce584acf6e90262e0b05e0031372e6");
-
-    /*Medical.testhello.call(function(error,result)
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
     {
-    	if(!error)
-    		swal(result);
-    	else
-    		console.log("error: "+error);
-    });*/
+        "constant": true,
+        "inputs": [
+            {
+                "name": "username",
+                "type": "bytes32"
+            }
+        ],
+        "name": "getPatientPublicKey",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "name": "PatientAddressMap",
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "name": "PatientPublicKey",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "PatientStruct",
+        "outputs": [
+            {
+                "name": "email_p",
+                "type": "string"
+            },
+            {
+                "name": "adhar_id",
+                "type": "uint256"
+            },
+            {
+                "name": "public_key",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "name": "usernameEmail",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }
+];
+    MedicoContract = web3.eth.contract(abi);
+    Medical = MedicoContract.at("0xd12efe7a45848b47a8ebc09519aba451318022b3");
+
 
 
 
@@ -329,7 +542,11 @@ $(document).ready(function() {
 
 
                                     });
-                                } else {
+                                }
+
+
+
+                                 else {
                                     let current_url = window.location.href;
                                     var make_url = username + "$" + result.substr(0, 5);
                                     var doc_username = current_url.substr(29, current_url.indexOf('$'));
@@ -377,7 +594,16 @@ $(document).ready(function() {
         } else {
             event.preventDefault();
             let username = $('#patient_user').val();
-            Medical.getPatientAddress(username, function(error, result) {
+            check_access_status(username);
+        }
+    });
+    function get_encrypted_hash(public_key,ipfsHash)
+    {
+       
+    }
+    function check_access_status(username)
+    {
+         Medical.getPatientAddress(username, function(error, result) {
                 if (!error) {
                     var patient_public_key=result;
                     Medical.checkstatusdoc(result, function(error, re) {
@@ -410,26 +636,69 @@ $(document).ready(function() {
                                                     console.log(err);
                                                     return;
                                                 }
+                                                else
+                                                {
 
-                                          
-                                            web3.shh.post({
-                                                        pubKey: patient_public_key,
-                                                         ttl: 7,
-                                                         topic: '0x07678231',
-                                                         powTarget: 2.01,
-                                                             powTime: 2,
-                                                     payload: web3.fromAscii("Hello there!")
-                                                 },function(err,result)
-                                                     {
-                                                             if(!err)
-                                                                 {
-                                                                      console.log(result);
-                                                                     }
-                                                                 else
-                                                                            {
-                                                                          console.log(err);
-                                                                            }
-                                                                             });
+                                              var ipfsHash=result[0].hash;
+                                              Medical.getPatientPublicKey(username,function(err,public_key)
+                                              {
+                                                   if(!err)
+                                                   {
+                                                    swal('Public key retrieved',public_key,'success');
+                                                      let Url=window.location.href;
+        var daaa={
+            pub_key:public_key,
+            msg:ipfsHash
+        };
+        Url+="/"+"encryptHash";
+        swal(Url);
+        $.ajax({
+            type:'POST',
+            url:Url,
+          
+            data:daaa,
+            dataType:'JSON',
+            success:function(msg)
+            {
+                if(msg.success)
+                {
+                    Medical.getPatientAddress(username,function(err,result)
+                    {
+                        if(!err)
+                        {
+
+                         Medical.setipfs.sendTransaction(result,web3.eth.accounts[0],msg.msg,function(err,res)
+                        
+                        {
+                        if(!err)
+                            swal('Sweet','Ipfs hash saved','success');
+                        else
+                            swal('Oops','Something happened','error');
+                        })
+                     }
+                     else
+                        swal('Oops','Something bad happened','error');
+                    })
+                   
+                               
+                }
+                else
+                    swal('Oops','Something bad happened','error');
+            },
+            error:function(err)
+            {
+                swal('Oops',err,'error');
+            }
+        })
+                                                      
+                                                   }
+                                                   else
+                                                   {
+                                                    swal(err);
+                                                   }
+                                              });                                           
+
+                                          }
 
 
                                             })
@@ -439,9 +708,13 @@ $(document).ready(function() {
 
                                     } 
                                     else
-                                        swal('Oops', 'Access still not granted.Make sure you requested the correct patient.Also check that you are logged in to your metamask account', 'error');
+                                        swal('Oops', 'Something bad happened!', 'error');
                                         
                                 });
+                            }
+                            else
+                            {
+                                swal('Oops', 'Access still not granted.Make sure you requested the correct patient.Also check that you are logged in to your metamask account', 'error');
                             }
                         } else
                             swal('Oops', 'Something bad happened', 'error');
@@ -453,8 +726,8 @@ $(document).ready(function() {
                     swal('Oops', 'Something bad happened', 'error');
                 }
             });
-        }
-    });
+    }
+
     $('#patient_log').click(function() {
         if (web3.eth.accounts[0] == undefined) {
             swal('', 'Please make sure  you are logged in to your metamask account', 'warning');
@@ -535,12 +808,28 @@ $(document).ready(function() {
             event.preventDefault();
             var email_p = $('#InputEmail_p').val();
             var adhar_id = $('#InputAdhar_p').val();
-            if (email_p == '' || adhar_id == '')
+            var private_key=$('#private_key_p').val();
+            if (email_p == '' || adhar_id == ''|| private_key=='')
                 swal("", "Please fill the form", "error");
             else {
+                 
+               let Url=window.location.href;
+               
+                 Url += "/" + "generatePublicKey";
+                 var privatekey={
+                    pr_key:private_key
+                 };
 
+                $.ajax({
+     url: Url,
+      type: 'POST',
+     data: privatekey,
+     dataType: 'JSON',
+     success: function(msg) {
+      if (msg.success) {
+       swal('Public key generated successfully', msg.msg, 'success');
 
-                var account_Address = web3.eth.accounts[0];
+             var account_Address = web3.eth.accounts[0];
 
                 console.log(email_p);
                 console.log(adhar_id);
@@ -549,7 +838,7 @@ $(document).ready(function() {
 
                 $('#InputAdhar_p').val('');
                 $('#InputEmail_p').val('');
-                Medical.setPatient.sendTransaction(email_p, adhar_id, username, {
+                Medical.setPatient.sendTransaction(email_p, adhar_id, username,msg.msg, {
                     from: web3.eth.accounts[0],
                     gas: 4000000
                 }, function(error, result) {
@@ -558,6 +847,54 @@ $(document).ready(function() {
                     else
                         swal('', 'Error occured', 'failure');
                 });
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           }
+          },
+       error: function(error) {
+        swal('Oops', 'Some error occured', 'error');
+               }
+          });
+
+
+
+
+
+                  
+
+
+
+
+
+
+
+
+
+
+
+
+               
+              
 
             }
         }
@@ -569,15 +906,30 @@ $(document).ready(function() {
             event.preventDefault();
             var email_d = $('#InputEmail_d').val();
             var adhar_id_d = $('#InputAdhar_d').val();
-            if (email_d == '' || adhar_id_d == '')
+            var private_key=$('#private_key_d').val();
+            if (email_d == '' || adhar_id_d == ''|| private_key=='')
                 swal('', 'Please fill the form', "error");
             else
 
             {
+              
 
+                let Url=window.location.href;
+               
+                 Url += "/" + "generatePublicKey";
+                 var privatekey={
+                    pr_key:private_key
+                 };
 
-
-                var account_Address = web3.eth.accounts[0];
+                $.ajax({
+     url: Url,
+      type: 'POST',
+     data: privatekey,
+     dataType: 'JSON',
+     success: function(msg) {
+      if (msg.success) {
+       swal('Public key generated successfully', msg.msg, 'success');
+           var account_Address = web3.eth.accounts[0];
                 console.log(email_d);
                 console.log(adhar_id_d);
                 var username = email_d.substr(0, email_d.indexOf('@'));
@@ -585,7 +937,7 @@ $(document).ready(function() {
 
                 $('#InputAdhar_d').val('');
                 $('#InputEmail_d').val('');
-                Medical.setDoctor.sendTransaction(email_d, adhar_id_d, username, {
+                Medical.setDoctor.sendTransaction(email_d, adhar_id_d, username,msg.msg, {
                     from: web3.eth.accounts[0],
                     gas: 4000000
                 }, function(error, result) {
@@ -594,6 +946,48 @@ $(document).ready(function() {
                     else
                         swal('', 'Error occured', 'failure');
                 });
+
+
+
+   }
+
+            },
+
+             error: function(error) {
+        swal('Oops', 'Some error occured', 'error');
+               }
+          });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
             }
         }
     })
