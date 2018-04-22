@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 
 
-    abi = [
+    abi =[
     {
         "constant": false,
         "inputs": [
@@ -34,7 +34,7 @@ $(document).ready(function() {
         "inputs": [
             {
                 "name": "email_id",
-                "type": "string"
+                "type": "bytes32"
             },
             {
                 "name": "adhar_id",
@@ -43,10 +43,6 @@ $(document).ready(function() {
             {
                 "name": "username",
                 "type": "bytes32"
-            },
-            {
-                "name": "public_key",
-                "type": "string"
             }
         ],
         "name": "setDoctor",
@@ -64,19 +60,19 @@ $(document).ready(function() {
         "constant": false,
         "inputs": [
             {
-                "name": "patient",
-                "type": "address"
+                "name": "email_id",
+                "type": "bytes32"
             },
             {
-                "name": "doctor",
-                "type": "address"
+                "name": "adhar_id",
+                "type": "uint256"
             },
             {
-                "name": "ipfsHash",
-                "type": "string"
+                "name": "username",
+                "type": "bytes32"
             }
         ],
-        "name": "setipfs",
+        "name": "setPatient",
         "outputs": [
             {
                 "name": "success",
@@ -91,23 +87,39 @@ $(document).ready(function() {
         "constant": false,
         "inputs": [
             {
-                "name": "email_id",
-                "type": "string"
-            },
-            {
-                "name": "adhar_id",
-                "type": "uint256"
-            },
-            {
-                "name": "username",
+                "name": "doc_username",
                 "type": "bytes32"
             },
             {
-                "name": "public_key",
-                "type": "string"
+                "name": "patient_username",
+                "type": "bytes32"
+            },
+            {
+                "name": "year",
+                "type": "uint16"
+            },
+            {
+                "name": "day",
+                "type": "uint8"
+            },
+            {
+                "name": "month",
+                "type": "uint8"
+            },
+            {
+                "name": "first",
+                "type": "bytes32"
+            },
+            {
+                "name": "second",
+                "type": "bytes32"
+            },
+            {
+                "name": "third",
+                "type": "bytes32"
             }
         ],
-        "name": "setPatient",
+        "name": "storeIpfs",
         "outputs": [
             {
                 "name": "success",
@@ -181,63 +193,17 @@ $(document).ready(function() {
             {
                 "name": "",
                 "type": "address"
-            },
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "DoctorPatientipfsHash",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "bytes32"
-            }
-        ],
-        "name": "DoctorPublicKey",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "address"
             }
         ],
         "name": "DoctorStruct",
         "outputs": [
             {
                 "name": "email_d",
-                "type": "string"
+                "type": "bytes32"
             },
             {
                 "name": "adhar_id_d",
                 "type": "uint256"
-            },
-            {
-                "name": "public_key",
-                "type": "string"
             }
         ],
         "payable": false,
@@ -256,7 +222,7 @@ $(document).ready(function() {
         "outputs": [
             {
                 "name": "email_d",
-                "type": "string"
+                "type": "bytes32"
             },
             {
                 "name": "adhar_id_d",
@@ -290,38 +256,23 @@ $(document).ready(function() {
         "constant": true,
         "inputs": [
             {
-                "name": "username",
-                "type": "bytes32"
+                "name": "patient_address",
+                "type": "address"
             }
         ],
-        "name": "getDoctorPublicKey",
+        "name": "getEncryptedHash",
         "outputs": [
             {
                 "name": "",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "patient",
-                "type": "address"
+                "type": "bytes32"
             },
             {
-                "name": "doctor",
-                "type": "address"
-            }
-        ],
-        "name": "getencryptedHash",
-        "outputs": [
+                "name": "",
+                "type": "bytes32"
+            },
             {
                 "name": "",
-                "type": "string"
+                "type": "bytes32"
             }
         ],
         "payable": false,
@@ -340,7 +291,7 @@ $(document).ready(function() {
         "outputs": [
             {
                 "name": "email_p",
-                "type": "string"
+                "type": "bytes32"
             },
             {
                 "name": "adhar_id",
@@ -382,26 +333,7 @@ $(document).ready(function() {
         "outputs": [
             {
                 "name": "",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "username",
                 "type": "bytes32"
-            }
-        ],
-        "name": "getPatientPublicKey",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string"
             }
         ],
         "payable": false,
@@ -432,14 +364,54 @@ $(document).ready(function() {
         "inputs": [
             {
                 "name": "",
-                "type": "bytes32"
+                "type": "address"
             }
         ],
-        "name": "PatientPublicKey",
+        "name": "PatientDocs",
         "outputs": [
             {
-                "name": "",
-                "type": "string"
+                "name": "uploadedBy",
+                "type": "bytes32"
+            },
+            {
+                "name": "belongsTo",
+                "type": "bytes32"
+            },
+            {
+                "components": [
+                    {
+                        "name": "year",
+                        "type": "uint16"
+                    },
+                    {
+                        "name": "day",
+                        "type": "uint8"
+                    },
+                    {
+                        "name": "month",
+                        "type": "uint8"
+                    }
+                ],
+                "name": "dateofupload",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "name": "first",
+                        "type": "bytes32"
+                    },
+                    {
+                        "name": "second",
+                        "type": "bytes32"
+                    },
+                    {
+                        "name": "third",
+                        "type": "bytes32"
+                    }
+                ],
+                "name": "encryptedHash",
+                "type": "tuple"
             }
         ],
         "payable": false,
@@ -458,15 +430,11 @@ $(document).ready(function() {
         "outputs": [
             {
                 "name": "email_p",
-                "type": "string"
+                "type": "bytes32"
             },
             {
                 "name": "adhar_id",
                 "type": "uint256"
-            },
-            {
-                "name": "public_key",
-                "type": "string"
             }
         ],
         "payable": false,
@@ -485,7 +453,7 @@ $(document).ready(function() {
         "outputs": [
             {
                 "name": "",
-                "type": "string"
+                "type": "bytes32"
             }
         ],
         "payable": false,
@@ -494,102 +462,116 @@ $(document).ready(function() {
     }
 ];
     MedicoContract = web3.eth.contract(abi);
-    Medical = MedicoContract.at("0xd12efe7a45848b47a8ebc09519aba451318022b3");
+    Medical = MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
 
-
+ 
 
 
     $('#ask').click(function(event) {
 
-        if (web3.eth.accounts[0] == undefined) {
-            swal('', 'Please make sure  you are logged in to your metamask account', 'warning');
-        } else {
-            event.preventDefault();
-            let username = $('#patient_username').val();
-            if (username == '')
-                swal('Oops', 'You forgot to enter username', 'error');
-            else {
-                Medical.getPatientAddress(username, function(error, result) {
-                    if (!error) {
-                        Medical.checkstatusdoc(result, function(error, re) {
-                            if (!error) {
-                                if (re == true) {
-                                    swal({
-                                        title: 'Access granted.You can now upload the EHR!',
-                                        type: 'success',
-                                        html: '<div class="form-group"> <input class="form-control-file" id="InputFile" aria-describedby="fileHelp" type="file"></div>',
-                                        showCloseButton: true,
-                                        showCancelButton: true,
-                                        confirmButtonText:
+       if (web3.eth.accounts[0] == undefined) {
+     swal('', 'Please make sure  you are logged in to your metamask account', 'warning');
+ } else {
+     event.preventDefault();
+     let username = $('#patient_username')
+         .val();
+     if (username == '')
+         swal('Oops', 'You forgot to enter username', 'error');
+     else {
+         Medical.getPatientAddress(username, function (error, result) {
+                 if (!error) {
+                     Medical.checkstatusdoc(result, function (error, re) {
+                             if (!error) {
+                                 if (re == true) {
+                                     swal({
+                                             title: 'Access granted.You can now upload the EHR!',
+                                             type: 'success',
+                                             html: '<div class="form-group"> <input class="form-control-file" id="InputFile" aria-describedby="fileHelp" type="file"></div>',
+                                             showCloseButton: true,
+                                             showCancelButton: true,
+                                             confirmButtonText:
 
-                                            '</i> Upload',
-
-
-                                    }).then((result) => {
-                                        if (result.value) {
+                                                 '</i> Upload',
 
 
-
-
-                                            swal('Hello thre');
+                                         })
+                                         .then((result) => {
+                                             if (result.value) {
 
 
 
 
-                                        }
+                                                 swal('Hello thre');
 
 
 
 
-                                    });
-                                }
-
-
-
-                                 else {
-                                    let current_url = window.location.href;
-                                    var make_url = username + "$" + result.substr(0, 5);
-                                    var doc_username = current_url.substr(29, current_url.indexOf('$'));
-                                    var make_url = {
-
-                                        make_url: make_url,
-                                        doc_username: doc_username
-                                    };
-                                    current_url += "/" + "sendmail";
-                                    $.ajax({
-                                        url: current_url,
-                                        type: 'POST',
-                                        data: make_url,
-                                        dataType: 'JSON',
-                                        success: function(msg) {
-                                            if (msg.success) {
-                                                swal('Sweet', 'Email address retrieved', 'success');
-                                            }
-                                        },
-                                        error: function(error) {
-                                            swal('Oops', 'Some error occured', 'error');
-                                        }
-                                    });
-                                }
-                            } else
-                                swal('Oops', 'Something bad happened', 'error');
-
-
-
-                        });
+                                             }
 
 
 
 
-                    } else
-                        swal('Oops', 'Something happended', 'error');
-                })
-            }
-        }
-    })
+                                         });
+                                 } else {
+
+
+
+                                     Medical.getPatientEmail(username, function (err, p_email) {
+                                         if (!err) {
+                                             let current_url = window.location.href;
+
+                                             var make_url = username + "$" + result.substr(0, 5);
+                                             var doc_username = current_url.substr(29, current_url.indexOf('$'));
+                                             var make_url = {
+
+                                                 make_url: make_url,
+                                                 doc_username: doc_username,
+                                                 patient_email: web3.toAscii(p_email)
+                                             };
+                                             current_url += "/" + "sendmail";
+                                             $.ajax({
+                                                 url: current_url,
+                                                 type: 'POST',
+                                                 data: make_url,
+                                                 dataType: 'JSON',
+                                                 success: function (msg) {
+                                                     if (msg.success) {
+                                                         swal('Sweet', 'Request sent', 'success');
+                                                     }
+                                                 },
+                                                 error: function (error) {
+                                                     swal('Oops', 'Some error occured', 'error');
+                                                 }
+                                             });
+                                         } 
+                                         else 
+                                             swal('Oops', 'Error in retrieving email', 'error');
+                                         
+                                     });
+                                 }
+
+                             }
+                          else
+                             swal('Oops', 'Something bad happened', 'error');
+
+
+
+                     });
+
+
+
+
+             } else
+                 swal('Oops', 'Something happended', 'error');
+         })
+     }
+ }
+       
+   })
 
     $('#check_status').click(function(event) {
-        if (web3.eth.accounts[0] == undefined) {
+      
+  if (web3.eth.accounts[0] == undefined) {
             swal('', 'Please make sure  you are logged in to your metamask account', 'warning');
         } else {
             event.preventDefault();
@@ -597,10 +579,7 @@ $(document).ready(function() {
             check_access_status(username);
         }
     });
-    function get_encrypted_hash(public_key,ipfsHash)
-    {
-       
-    }
+   
     function check_access_status(username)
     {
          Medical.getPatientAddress(username, function(error, result) {
@@ -640,63 +619,63 @@ $(document).ready(function() {
                                                 {
 
                                               var ipfsHash=result[0].hash;
-                                              Medical.getPatientPublicKey(username,function(err,public_key)
+                                        Medical.getPatientEmail(username,function(err,result)
                                               {
-                                                   if(!err)
+                                                if(!err)
+                                                {
+                                                   Medical.getPatientAddress(username,function(err,add)
                                                    {
-                                                    swal('Public key retrieved',public_key,'success');
-                                                      let Url=window.location.href;
-        var daaa={
-            pub_key:public_key,
-            msg:ipfsHash
-        };
-        Url+="/"+"encryptHash";
-        swal(Url);
-        $.ajax({
-            type:'POST',
-            url:Url,
-          
-            data:daaa,
-            dataType:'JSON',
-            success:function(msg)
-            {
-                if(msg.success)
-                {
-                    Medical.getPatientAddress(username,function(err,result)
-                    {
-                        if(!err)
-                        {
 
-                         Medical.setipfs.sendTransaction(result,web3.eth.accounts[0],msg.msg,function(err,res)
-                        
-                        {
-                        if(!err)
-                            swal('Sweet','Ipfs hash saved','success');
-                        else
-                            swal('Oops','Something happened','error');
-                        })
-                     }
-                     else
-                        swal('Oops','Something bad happened','error');
-                    })
-                   
-                               
-                }
-                else
-                    swal('Oops','Something bad happened','error');
-            },
-            error:function(err)
-            {
-                swal('Oops',err,'error');
-            }
-        })
-                                                      
-                                                   }
-                                                   else
-                                                   {
-                                                    swal(err);
-                                                   }
-                                              });                                           
+                                                     if(!err)
+                                                     {
+                                                       var p_address=add.substr(0,5);
+                                                    console.log(result);
+                                                   swal(web3.toAscii(result));
+                                             var Url="http://localhost:3000/patient";
+                                              Url+="/"+username+"$"+p_address;
+                                              //swal(Url);
+                                              var curr_url=window.location.href;
+                                              curr_url=curr_url.split("/");
+                                              var doc_username=curr_url[4].substr(0,curr_url[4].indexOf("$"));
+                                              console.log(doc_username);
+                                              Url+="/"+doc_username+"/"+ipfsHash;
+                                              //swal(Url);
+                                              var post_url=window.location.href;
+                                              post_url+="/"+"sendIpfsHash";
+                                              var data={
+                                                patient_email:web3.toAscii(result),
+                                                urlipfs:Url
+                                              }
+                                              $.ajax({
+                                                type:"POST",
+                                                url:post_url,
+                                                data:data,
+                                                dataType:"JSON",
+                                                success:function(msg)
+                                                {
+                                                    if(msg.success)
+                                                        swal('Success',msg.msg,'success');
+                                                    else
+                                                        swal('Oops','Error occured','error');
+
+                                                },
+                                                error:function(error)
+                                                {
+                                                    swal('Oops','Something bad happened','error');
+                                                }
+                                              })
+                                          }
+                                          else
+                                            swal('Error');
+                                          })
+                                               }
+                                              else
+                                                swal('Error');
+                                              });
+                                            
+
+
+                                                                                        
 
                                           }
 
@@ -727,7 +706,6 @@ $(document).ready(function() {
                 }
             });
     }
-
     $('#patient_log').click(function() {
         if (web3.eth.accounts[0] == undefined) {
             swal('', 'Please make sure  you are logged in to your metamask account', 'warning');
@@ -735,7 +713,9 @@ $(document).ready(function() {
 
             Medical.getPatient(web3.eth.accounts[0], function(error, result) {
                 if (!error) {
-                    if (result[0] != '' || result[1] != 0) {
+                    if (result[0] != '' && result[1] != 0) {
+
+                        result[0]=web3.toAscii(result[0]);
                         var make_url = result[0].substr(0, result[0].indexOf('@')) + "$" + web3.eth.accounts[0].substr(0, 5);
                         var url = "http://localhost:3000/patient/" + make_url;
                         swal({
@@ -775,7 +755,8 @@ $(document).ready(function() {
         } else {
             Medical.getDoctor(web3.eth.accounts[0], function(error, result) {
                 if (!error) {
-                    if (result[0] != '' || result[1] != 0) {
+                    if (result[0] != '' && result[1] != 0) {
+                        result[0]=web3.toAscii(result[0]);
                         var make_url = result[0].substr(0, result[0].indexOf('@')) + "$" + web3.eth.accounts[0].substr(0, 5);
                         var url = "http://localhost:3000/doctor/" + make_url;
                         swal({
@@ -804,30 +785,20 @@ $(document).ready(function() {
     $('#p_reg').click(function(event) {
         if (web3.eth.accounts[0] == undefined) {
             swal('', 'Please make sure  you are logged in to your metamask account', 'warning');
-        } else {
+        } else 
+
+
+        {
             event.preventDefault();
             var email_p = $('#InputEmail_p').val();
             var adhar_id = $('#InputAdhar_p').val();
-            var private_key=$('#private_key_p').val();
-            if (email_p == '' || adhar_id == ''|| private_key=='')
+          
+            if (email_p == '' || adhar_id == '')
                 swal("", "Please fill the form", "error");
-            else {
+            else 
+            {
                  
-               let Url=window.location.href;
-               
-                 Url += "/" + "generatePublicKey";
-                 var privatekey={
-                    pr_key:private_key
-                 };
-
-                $.ajax({
-     url: Url,
-      type: 'POST',
-     data: privatekey,
-     dataType: 'JSON',
-     success: function(msg) {
-      if (msg.success) {
-       swal('Public key generated successfully', msg.msg, 'success');
+             
 
              var account_Address = web3.eth.accounts[0];
 
@@ -838,7 +809,7 @@ $(document).ready(function() {
 
                 $('#InputAdhar_p').val('');
                 $('#InputEmail_p').val('');
-                Medical.setPatient.sendTransaction(email_p, adhar_id, username,msg.msg, {
+                Medical.setPatient.sendTransaction(email_p, adhar_id, username, {
                     from: web3.eth.accounts[0],
                     gas: 4000000
                 }, function(error, result) {
@@ -869,12 +840,6 @@ $(document).ready(function() {
 
 
 
-           }
-          },
-       error: function(error) {
-        swal('Oops', 'Some error occured', 'error');
-               }
-          });
 
 
 
@@ -898,37 +863,26 @@ $(document).ready(function() {
 
             }
         }
-    })
-    $('#d_reg').click(function(event) {
+    });
+    $('#d_reg').click(function(event) 
+    {
         if (web3.eth.accounts[0] == undefined) {
             swal('', 'Please make sure  you are logged in to your metamask account', 'warning');
         } else {
             event.preventDefault();
             var email_d = $('#InputEmail_d').val();
             var adhar_id_d = $('#InputAdhar_d').val();
-            var private_key=$('#private_key_d').val();
-            if (email_d == '' || adhar_id_d == ''|| private_key=='')
+           
+            if (email_d == '' || adhar_id_d == '' )
                 swal('', 'Please fill the form', "error");
             else
 
             {
               
 
-                let Url=window.location.href;
                
-                 Url += "/" + "generatePublicKey";
-                 var privatekey={
-                    pr_key:private_key
-                 };
-
-                $.ajax({
-     url: Url,
-      type: 'POST',
-     data: privatekey,
-     dataType: 'JSON',
-     success: function(msg) {
-      if (msg.success) {
-       swal('Public key generated successfully', msg.msg, 'success');
+  
+             
            var account_Address = web3.eth.accounts[0];
                 console.log(email_d);
                 console.log(adhar_id_d);
@@ -937,7 +891,7 @@ $(document).ready(function() {
 
                 $('#InputAdhar_d').val('');
                 $('#InputEmail_d').val('');
-                Medical.setDoctor.sendTransaction(email_d, adhar_id_d, username,msg.msg, {
+                Medical.setDoctor.sendTransaction(email_d, adhar_id_d, username,{
                     from: web3.eth.accounts[0],
                     gas: 4000000
                 }, function(error, result) {
@@ -949,15 +903,9 @@ $(document).ready(function() {
 
 
 
-   }
+   
 
-            },
-
-             error: function(error) {
-        swal('Oops', 'Some error occured', 'error');
-               }
-          });
-
+            
 
 
 

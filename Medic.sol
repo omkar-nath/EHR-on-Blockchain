@@ -4,27 +4,28 @@ contract Medical
   
     struct Patient
     {
-        string email_p;
+        bytes32 email_p;
         uint adhar_id;
-        string public_key;
+        bytes32 public_key;
     }
     struct Doctor
     {
-        string email_d;
+        bytes32 email_d;
         uint adhar_id_d;
-       string public_key;
+       bytes32 public_key;
     }
+  
     mapping(address=>Patient) public PatientStruct ;
     mapping(address=>Doctor) public DoctorStruct;
     mapping(bytes32=>address) public PatientAddressMap;
-    mapping(bytes32=>string) public PatientPublicKey;
-    mapping(bytes32=>string) public DoctorPublicKey;
-    mapping(address=>mapping(address=>string)) public DoctorPatientipfsHash;
+    mapping(bytes32=>bytes32) public PatientPublicKey;
+    mapping(bytes32=>bytes32) public DoctorPublicKey;
+   
     
     mapping(address=>mapping(address=>uint)) patientgrantaccess;
-    mapping(bytes32=>string) public usernameEmail;
+    mapping(bytes32=>bytes32) public usernameEmail;
     mapping(bytes32=>address) public DoctorAddressMap;
-    function setPatient(string email_id,uint adhar_id,bytes32 username,string public_key) public returns(bool success)
+    function setPatient(bytes32 email_id,uint adhar_id,bytes32 username,bytes32 public_key) public returns(bool success)
     {
         PatientStruct[msg.sender].email_p=email_id;
         PatientStruct[msg.sender].adhar_id=adhar_id;
@@ -34,11 +35,11 @@ contract Medical
         PatientPublicKey[username]=public_key;
         return true;
     }
-    function getPatient(address patient_add) public constant returns(string email_p,uint adhar_id)
+    function getPatient(address patient_add) public constant returns(bytes32 email_p,uint adhar_id)
     {
         return (PatientStruct[patient_add].email_p,PatientStruct[patient_add].adhar_id);
     }
-    function setDoctor(string email_id,uint adhar_id,bytes32 username,string public_key) public returns(bool success)
+    function setDoctor(bytes32 email_id,uint adhar_id,bytes32 username,bytes32 public_key) public returns(bool success)
     {
         DoctorStruct[msg.sender].email_d=email_id;
         DoctorStruct[msg.sender].adhar_id_d=adhar_id;
@@ -48,7 +49,7 @@ contract Medical
         
         return true;
     }
-    function getDoctor(address doctor_add) public constant returns(string email_d,uint adhar_id_d)
+    function getDoctor(address doctor_add) public constant returns(bytes32 email_d,uint adhar_id_d)
     {
         return(DoctorStruct[doctor_add].email_d,DoctorStruct[doctor_add].adhar_id_d);
     }
@@ -60,7 +61,7 @@ contract Medical
     {
         return DoctorAddressMap[keccak256(username)];
     }
-    function getPatientEmail(bytes32 username) public constant returns(string)
+    function getPatientEmail(bytes32 username) public constant returns(bytes32)
     {
         return usernameEmail[keccak256(username)];
     }
@@ -86,24 +87,15 @@ contract Medical
         else
         return false;
     }
-    function getPatientPublicKey(bytes32 username) public constant returns(string)
+    function getPatientPublicKey(bytes32 username) public constant returns(bytes32)
     {
         return PatientPublicKey[username];
     }
-    function getDoctorPublicKey(bytes32 username) public constant returns(string)
+    function getDoctorPublicKey(bytes32 username) public constant returns(bytes32)
     {
         return DoctorPublicKey[username];
     }
-    function setipfs(address patient,address doctor,string ipfsHash) public returns(bool success)
-    {
-        DoctorPatientipfsHash[patient][doctor]=ipfsHash;
-        
-        return true;
-    }
-    function getencryptedHash(address patient,address doctor) view public returns(string)
-    {
-        return DoctorPatientipfsHash[patient][doctor];
-    }
+  
   
 
     

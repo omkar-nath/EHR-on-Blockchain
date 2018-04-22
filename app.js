@@ -12,6 +12,7 @@ var new_doctor=require('./routes/new_doctor');
 var patient_profile=require('./routes/patient_profile');
 var doctor_profile=require('./routes/doctor_profile');
 
+
 var app = express();
 
 // view engine setup
@@ -32,6 +33,8 @@ app.use('/new/patient',new_patient);
 app.use('/new/doctor',new_doctor);
 app.use('/patient/:user',patient_profile);
 app.use('/doctor/:user',doctor_profile);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

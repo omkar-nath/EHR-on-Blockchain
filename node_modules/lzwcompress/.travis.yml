@@ -1,0 +1,12 @@
+sudo: false
+language: node_js
+addons:
+  sauce_connect: true
+node_js:
+  - 'stable'
+before_script:
+  - 'npm install -g grunt-cli codeclimate-test-reporter'
+script:
+  - grunt ci
+after_success:
+  - 'codeclimate-test-reporter < coverage/lcov.info'

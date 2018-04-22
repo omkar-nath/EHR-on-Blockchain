@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
-const ecies=require('eth-ecies');
+const EthCrypto = require('eth-crypto');
 router.get('/', function(req, res, next) {
   res.render('doctor_profile');
 });
@@ -13,6 +13,9 @@ router.post('/sendmail',function(req,res,next)
     {
     	 var make_url = req.body.make_url;
        var doc_user=req.body.doc_username;
+
+       var patient_email=req.body.patient_email;
+       console.log(patient_email);
     	 
    var transporter = nodemailer.createTransport({
  					service: 'gmail',
@@ -47,29 +50,47 @@ router.post('/sendmail',function(req,res,next)
 });
     }
 })
-router.post('/encryptHash',function(req,res,next)
+router.post("/sendIpfsHash",function(req,res,next)
 {
   if (req.xhr || req.accepts('json,html') === 'json')
-    {
-      var public_key=req.body.pub_key;
-      var ipfsHash=req.body.msg;
-      //console.log(public_key);
-      //console.log(ipfsHash);
-      let userPublicKey = new Buffer(public_key, 'hex');
-    console.log(userPublicKey);
-    let bufferData = new Buffer(ipfsHash);
+  {
+    var patient_email=req.body.patient_email;
+    var ipfsUrl=req.body.urlipfs;
+    console.log('PAtient email ',patient_email);
+    console.log('Ipfs url ',ipfsUrl);
 
-    let encryptedData = ecies.encrypt(userPublicKey, bufferData);
-    console.log('Encrypted hash is :');
-    console.log(encryptedData.toString('base64'));
+    var transporter = nodemailer.createTransport({
+          service: 'gmail',
+    auth: {
+              user: 'medicochain800@gmail.com',
+              pass: 'securepassword',
+              proxy: process.env.http_proxy
+          }
 
-   let encrypted_data=encryptedData.toString('base64');
+});
+           const mailOptions = {
+  from: 'medicochain800@gmail.com', 
+  to: 'omilpsablock@gmail.com', 
+  subject: 'File Hash', // Subject line
+  html: '<p><br>Please click the below link if you agree <br><a href='+ipfsUrl+'> File upload  </a></p>'
+  
+};
+  transporter.sendMail(mailOptions, function (err, info) {
+   if(err)
+     console.log(err)
+   else
+     console.log(info);
+});
 
 
-      res.json({
-         success:true,
-         msg:encrypted_data
-      });
-    }
+
+
+
+    var msg="Ho gaya";
+    res.json({
+      success:"true",
+      msg:msg
+    });
+  }
 })
 module.exports = router;

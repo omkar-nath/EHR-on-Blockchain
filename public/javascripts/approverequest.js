@@ -25,7 +25,7 @@ $(document).ready(function()
 		"inputs": [
 			{
 				"name": "email_id",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"name": "adhar_id",
@@ -34,10 +34,6 @@ $(document).ready(function()
 			{
 				"name": "username",
 				"type": "bytes32"
-			},
-			{
-				"name": "public_key",
-				"type": "string"
 			}
 		],
 		"name": "setDoctor",
@@ -55,19 +51,19 @@ $(document).ready(function()
 		"constant": false,
 		"inputs": [
 			{
-				"name": "patient",
-				"type": "address"
+				"name": "email_id",
+				"type": "bytes32"
 			},
 			{
-				"name": "doctor",
-				"type": "address"
+				"name": "adhar_id",
+				"type": "uint256"
 			},
 			{
-				"name": "ipfsHash",
-				"type": "string"
+				"name": "username",
+				"type": "bytes32"
 			}
 		],
-		"name": "setipfs",
+		"name": "setPatient",
 		"outputs": [
 			{
 				"name": "success",
@@ -82,23 +78,39 @@ $(document).ready(function()
 		"constant": false,
 		"inputs": [
 			{
-				"name": "email_id",
-				"type": "string"
-			},
-			{
-				"name": "adhar_id",
-				"type": "uint256"
-			},
-			{
-				"name": "username",
+				"name": "doc_username",
 				"type": "bytes32"
 			},
 			{
-				"name": "public_key",
-				"type": "string"
+				"name": "patient_username",
+				"type": "bytes32"
+			},
+			{
+				"name": "year",
+				"type": "uint16"
+			},
+			{
+				"name": "day",
+				"type": "uint8"
+			},
+			{
+				"name": "month",
+				"type": "uint8"
+			},
+			{
+				"name": "first",
+				"type": "bytes32"
+			},
+			{
+				"name": "second",
+				"type": "bytes32"
+			},
+			{
+				"name": "third",
+				"type": "bytes32"
 			}
 		],
-		"name": "setPatient",
+		"name": "storeIpfs",
 		"outputs": [
 			{
 				"name": "success",
@@ -172,63 +184,17 @@ $(document).ready(function()
 			{
 				"name": "",
 				"type": "address"
-			},
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "DoctorPatientipfsHash",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"name": "DoctorPublicKey",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
 			}
 		],
 		"name": "DoctorStruct",
 		"outputs": [
 			{
 				"name": "email_d",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"name": "adhar_id_d",
 				"type": "uint256"
-			},
-			{
-				"name": "public_key",
-				"type": "string"
 			}
 		],
 		"payable": false,
@@ -247,7 +213,7 @@ $(document).ready(function()
 		"outputs": [
 			{
 				"name": "email_d",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"name": "adhar_id_d",
@@ -281,38 +247,23 @@ $(document).ready(function()
 		"constant": true,
 		"inputs": [
 			{
-				"name": "username",
-				"type": "bytes32"
+				"name": "patient_address",
+				"type": "address"
 			}
 		],
-		"name": "getDoctorPublicKey",
+		"name": "getEncryptedHash",
 		"outputs": [
 			{
 				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "patient",
-				"type": "address"
+				"type": "bytes32"
 			},
 			{
-				"name": "doctor",
-				"type": "address"
-			}
-		],
-		"name": "getencryptedHash",
-		"outputs": [
+				"name": "",
+				"type": "bytes32"
+			},
 			{
 				"name": "",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"payable": false,
@@ -331,7 +282,7 @@ $(document).ready(function()
 		"outputs": [
 			{
 				"name": "email_p",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"name": "adhar_id",
@@ -373,26 +324,7 @@ $(document).ready(function()
 		"outputs": [
 			{
 				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "username",
 				"type": "bytes32"
-			}
-		],
-		"name": "getPatientPublicKey",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
 			}
 		],
 		"payable": false,
@@ -423,14 +355,54 @@ $(document).ready(function()
 		"inputs": [
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "address"
 			}
 		],
-		"name": "PatientPublicKey",
+		"name": "PatientDocs",
 		"outputs": [
 			{
-				"name": "",
-				"type": "string"
+				"name": "uploadedBy",
+				"type": "bytes32"
+			},
+			{
+				"name": "belongsTo",
+				"type": "bytes32"
+			},
+			{
+				"components": [
+					{
+						"name": "year",
+						"type": "uint16"
+					},
+					{
+						"name": "day",
+						"type": "uint8"
+					},
+					{
+						"name": "month",
+						"type": "uint8"
+					}
+				],
+				"name": "dateofupload",
+				"type": "tuple"
+			},
+			{
+				"components": [
+					{
+						"name": "first",
+						"type": "bytes32"
+					},
+					{
+						"name": "second",
+						"type": "bytes32"
+					},
+					{
+						"name": "third",
+						"type": "bytes32"
+					}
+				],
+				"name": "encryptedHash",
+				"type": "tuple"
 			}
 		],
 		"payable": false,
@@ -449,15 +421,11 @@ $(document).ready(function()
 		"outputs": [
 			{
 				"name": "email_p",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"name": "adhar_id",
 				"type": "uint256"
-			},
-			{
-				"name": "public_key",
-				"type": "string"
 			}
 		],
 		"payable": false,
@@ -476,7 +444,7 @@ $(document).ready(function()
 		"outputs": [
 			{
 				"name": "",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"payable": false,
@@ -485,111 +453,81 @@ $(document).ready(function()
 	}
 ];
 MedicoContract=web3.eth.contract(abi);
-Medical=MedicoContract.at("0xd12efe7a45848b47a8ebc09519aba451318022b3");
+Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
 
- if(web3.eth.accounts[0]==undefined)
-   {
-   	swal('','Please make sure  you are logged in to your metamask account','warning');
-   }
-   else
-   {
-   	 Medical.getPatient(web3.eth.accounts[0],function(error,result)
-    {
-    	if(!error)
-    	{
-    		if(result[0]==''||result[1]=='')
-    		{
-    			swal('Oops','Please change to your metamask account','error');
-    		}
-    		else
-    {
-    	swal({
-  title: 'Approve request?',
-  text: "Please click ok to approve request!",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Approve!'
-}).then((result) => {
-  if (result.value) {
-   let curr_url=window.location.href;
-   var _url=curr_url.substring(curr_url.indexOf('/', 8));
-   var new_url=_url.substring(_url.indexOf('/',9));
-   var doc_user=new_url.substring(1,new_url.indexOf('$'));
-   Medical.getDoctorAddress(doc_user,function(error,data)
-   {
-   	if(!error)
-   	{
-   		Medical.checkstatus(data,function(error,re)
-   		{
-   			if(!error)
-   			{
-   			if(re==true)
-   			{
-              Medical.grantAccess.sendTransaction(data,{
-	 			from:web3.eth.accounts[0],
-	 			gas:4000000},function(error,result)
-	 			{
-   		     if(!error)
-   		     {
+ if (web3.eth.accounts[0] == undefined) {
+     swal('hsbhash', 'Please make sure  you are logged in to your metamask account', 'warning');
+ } else {
 
-               
+    let Url=window.location.href;
+    let patient_username=Url.split("/")[4].substr(0,Url.split("/")[4].indexOf('$'));
+     Medical.getPatientAddress(patient_username, function (error, result) {
+
+         if (!error) {
+             if (web3.eth.accounts[0]!=result)
+                {
+                	 swal('Oops','Please switch to your metamask account','error');
+                }
+
+             else {
+                 swal({
+                         title: 'Approve request?',
+                         text: "Please click ok to approve request!",
+                         type: 'warning',
+                         showCancelButton: true,
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#d33',
+                         confirmButtonText: 'Approve!'
+                     })
+                     .then((result) => {
+                         if (result.value) {
+                             let curr_url = window.location.href;
+                             var _url = curr_url.substring(curr_url.indexOf('/', 8));
+                             var new_url = _url.substring(_url.indexOf('/', 9));
+                             var doc_user = new_url.substring(1, new_url.indexOf('$'));
+                             Medical.getDoctorAddress(doc_user, function (error, data) {
+                                 if (!error) {
+                                     Medical.checkstatus(data, function (error, re) {
+                                         if (!error) {
+                                             if (re == true) {
+                                                 Medical.grantAccess.sendTransaction(data, {
+                                                     from: web3.eth.accounts[0],
+                                                     gas: 4000000
+                                                 }, function (error, result) {
+                                                     if (!error) {
 
 
 
 
+                                                         swal('Sweet', 'Access granted', 'success');
 
 
+                                                     } else {
+                                                         swal('Oops', 'Something bad happened', 'error');
+                                                     }
+
+                                                 });
+                                             } else {
+                                                 swal('Oops', 'Access already granted', 'warning');
+                                             }
+                                         } else {
+                                             swal('Oops', 'Something wrong happened', 'error');
+                                         }
+                                     });
+                                 }
+                             });
 
 
+                         } else {
+                             window.location.href = "http://localhost:3000";
+                         }
 
+                     })
+             }
 
+         }
 
+     });
+ }
 
-
-
-
-
-
-
-   		     	swal('Sweet','Access granted','success');
-
-                
-   		     }
-   		     else
-   		     {
-   		     	swal('Oops','Something bad happened','error');
-   		     }
-
-   		});
-          }
-          else
-          {
-          	swal('Oops','Access already granted','warning');
-          }
-   	}
-   	else
-   	{
-   		swal('Oops','Something wrong happened','error');
-   	}
-   });
-   			}
-   		});
-   		
-   
-}
-    else
-    {
-    	window.location.href="http://localhost:3000";
-    }
-  
-})
-    }
-    		
-    }
-
-});
- }    
-
-});
+ });
