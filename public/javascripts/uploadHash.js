@@ -499,16 +499,21 @@ Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
         		if(web3.eth.accounts[0]==result)
         		{
         			swal({
-        				title:'Please enter the passkey',
-        				html:'<input type="password" id="passkey" placeholder="Enter password"> </input>',
-        				confirmButtonText:"Encryption"
+        				title:'Please enter the password to encrypt',
+        				html:'<input type="text" class="form-control" id="passkey" placeholder="Enter password"> </input> <br> <p class="mb-0" style="color:red"><strong>Warning:</strong> Never disclose this key. Anyone with your password can take steal any assets held in your account.Also store this password somewhere else.Loosing this will result in failure of access of your records</p>'
+
+
+        				,
+        				confirmButtonText:"Encrypt document",
+
+        				type:'warning'
 
 
         			}).then((result)=>{
         				 var passkey=$('#passkey').val();
         				 if(passkey=='')
         				 {
-        				 	swal('Oops','Please enter passkey','error');
+        				 	swal('Oops','Please refresh the page and enter password','error');
         				 	return;
         				 }
         				 else
@@ -555,6 +560,7 @@ Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
                 		if(!err)
                 		{
                 			swal('Sweet','File encrypted hash stored','success');
+                			
                 		}
                 		else
                 			swal('Oops','Something bad happened','error');

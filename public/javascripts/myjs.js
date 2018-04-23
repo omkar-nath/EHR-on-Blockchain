@@ -478,7 +478,19 @@ $(document).ready(function() {
      if (username == '')
          swal('Oops', 'You forgot to enter username', 'error');
      else {
-         Medical.getPatientAddress(username, function (error, result) {
+
+
+          var curr_url=window.location.href;
+          curr_url=curr_url.split("/");
+          var doc_username=curr_url[4].substring(0,curr_url[4].indexOf('$'));
+          console.log(doc_username);
+          Medical.getDoctorAddress(doc_username,function(err,add)
+          {
+            if(!err)
+            {
+                 if(web3.eth.accounts[0]==add)
+                 {
+                     Medical.getPatientAddress(username, function (error, result) {
                  if (!error) {
                      Medical.checkstatusdoc(result, function (error, re) {
                              if (!error) {
@@ -564,6 +576,17 @@ $(document).ready(function() {
              } else
                  swal('Oops', 'Something happended', 'error');
          })
+
+                 }
+                 else
+                    swal('Oops','Please switch to your metamask account','warning');
+            }
+            else
+            {
+                swal('Oops ','Something bad happened','error');
+            }
+          })
+                  
      }
  }
        
