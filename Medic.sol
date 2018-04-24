@@ -8,12 +8,7 @@ contract Medical
         uint adhar_id;
        
     }
-    struct Date
-    {
-        uint16 year;
-        uint8 day;
-        uint8 month;
-    }
+   
     struct Doctor
     {
         bytes32 email_d;
@@ -33,7 +28,7 @@ contract Medical
    {
        bytes32 uploadedBy;
        bytes32 belongsTo;
-       Date dateofupload;
+      bytes32 date;
        IpfsHash encryptedHash;
        
    }
@@ -41,7 +36,7 @@ contract Medical
     mapping(address=>Doctor) public DoctorStruct;
     mapping(bytes32=>address) public PatientAddressMap;
   
-   mapping(address=>EhrDocument) public PatientDocs;
+   mapping(address=>EhrDocument[]) public PatientDocs;
    
     
     mapping(address=>mapping(address=>uint)) patientgrantaccess;
@@ -67,6 +62,7 @@ contract Medical
         DoctorStruct[msg.sender].adhar_id_d=adhar_id;
         DoctorAddressMap[keccak256(username)]=msg.sender;
        
+       
    
         
         return true;
@@ -87,6 +83,7 @@ contract Medical
     {
         return usernameEmail[keccak256(username)];
     }
+   
     function grantAccess(address doc_address) public  returns(bool)
     {
         
@@ -110,22 +107,46 @@ contract Medical
         return false;
     }
    
-    function storeIpfs(bytes32 doc_username,bytes32 patient_username,uint16 year,uint8 day,uint8 month,bytes32 first,bytes32 second,bytes32 third) public returns(bool success)
-    {
-        PatientDocs[msg.sender].uploadedBy=doc_username;
-        PatientDocs[msg.sender].belongsTo=patient_username;
-        PatientDocs[msg.sender].encryptedHash.first=first;
-        PatientDocs[msg.sender].encryptedHash.second=second;
-        PatientDocs[msg.sender].encryptedHash.third=third;
-        PatientDocs[msg.sender].dateofupload.day=day;
-        PatientDocs[msg.sender].dateofupload.month=month;
-        PatientDocs[msg.sender].dateofupload.year=year;
+    function storeIpfs(bytes32 doc_username,bytes32 patient_username,bytes32 date,bytes32 first,bytes32 second,bytes32 third) public returns(bool success)
+    { 
+      // uint256 count= PatientStruct[msg.sender].count_doc;    
+       EhrDocument storage doc;
+       
+       
+        doc.uploadedBy=doc_username;
+        doc.belongsTo=patient_username;
+        doc.encryptedHash.first=first;
+        doc.encryptedHash.second=second;
+        doc.encryptedHash.third=third;
+        doc.date=date;
+        PatientDocs[msg.sender].push(doc);
+      //  count++;
         return true;
     }
-  function getEncryptedHash(address patient_address) public constant returns(bytes32,bytes32,bytes32)
+  
+  function getEHRDetails(address patient_address) public constant returns(bytes32[],bytes32[],bytes32[],bytes32[],bytes32[] )
   {
-      return (PatientDocs[patient_address].encryptedHash.first,PatientDocs[patient_address].encryptedHash.second,PatientDocs[patient_address].encryptedHash.third);
+     // EhrDocument[] docs = EhrDocument[](PatientDocs[patient_address].length);
+      bytes32[] memory uploadedBy = new bytes32[](PatientDocs[patient_address].length);
+      bytes32[] memory date = new bytes32[](PatientDocs[patient_address].length);
+      bytes32[] memory part1 = new bytes32[](PatientDocs[patient_address].length);
+      bytes32[] memory part2 = new bytes32[](PatientDocs[patient_address].length);
+      bytes32[] memory part3 = new bytes32[](PatientDocs[patient_address].length);
+      
+     // EtherDocument storage doc = EtherDocument[]
+      for (uint i=0; i < PatientDocs[patient_address].length ; i++)
+      {
+          EhrDocument storage doc = PatientDocs[patient_address][i];
+          uploadedBy[i] = doc.uploadedBy;
+          date[i] = doc.date;
+          part1[i] = doc.encryptedHash.first;
+          part2[i] = doc.encryptedHash.second;
+          part3[i] = doc.encryptedHash.third;
+      }
+      return (uploadedBy, date, part1, part2, part3);
+      
   }
+  
 
     
    
