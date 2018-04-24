@@ -27,15 +27,26 @@ html
     script(src='http://localhost:3000/jahttp://localhost:3000/vascripts/jquery.backtotop.js')
     script(src='http://localhost:3000/javascripts/jquery.mobilemenu.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
-body
- .form-group
-  label(for='exampleInputEmail1') Enter Patient's username
-  input#patient_username.form-control(aria-describedby='emailHelp', placeholder='Enter username', type='email')
-  small#emailHelp.form-text.text-muted Enter the username of patient to ask permission in order to upload his/her EHR on blockchain
-button.btn.btn-primary#ask(type='button') Ask Permission
-br
-.form-group
-  label(for='exampleInputEmail1') Enter Patient's username
-  input#patient_user.form-control(aria-describedby='emailHelp', placeholder='Enter username', type='email')
-  small#emailHelp.form-text.text-muted Enter the username of patient to check accessbility status
-button.btn.btn-primary#check_status(type='button') Check status
+body(style="background-color:#DCDCDC")
+  .well(style="background-color:#F8F8FF;padding:20px;border-radius:10px;")
+        .form-group
+          label(for='exampleInputEmail1') 
+          input#patient_username.form-control(aria-describedby='emailHelp', placeholder='Enter username', type='text')
+          small#emailHelp.form-text.text-muted Enter the username of patient to ask permission in order to upload his/her EHR on blockchain
+        button.btn.btn-primary#ask(type='button') Ask Permission
+        br
+        .form-group
+          label(for='exampleInputEmail1') 
+          input#patient_user.form-control(aria-describedby='emailHelp', placeholder='Enter username', type='text')
+          small#emailHelp.form-text.text-muted Enter the username of patient to check accessbility status
+        button.btn.btn-primary#check_status(type='button') Check status
+        .form-group
+          label(for='exampleInputEmail1') 
+          input#patient_user_read.form-control(aria-describedby='emailHelp', placeholder='Enter username', type='text')
+          small#emailHelp.form-text.text-muted Enter the username of patient to read his EHR
+        button.btn.btn-primary#show_docs(type='button') Show documents
+        br
+  ul.list-group#ehr_list(style="display:none")
+
+
+        

@@ -86,16 +86,8 @@ $(document).ready(function()
 				"type": "bytes32"
 			},
 			{
-				"name": "year",
-				"type": "uint16"
-			},
-			{
-				"name": "day",
-				"type": "uint8"
-			},
-			{
-				"name": "month",
-				"type": "uint8"
+				"name": "date",
+				"type": "bytes32"
 			},
 			{
 				"name": "first",
@@ -251,19 +243,27 @@ $(document).ready(function()
 				"type": "address"
 			}
 		],
-		"name": "getEncryptedHash",
+		"name": "getEHRDetails",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "bytes32[]"
 			},
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "bytes32[]"
 			},
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "bytes32[]"
+			},
+			{
+				"name": "",
+				"type": "bytes32[]"
+			},
+			{
+				"name": "",
+				"type": "bytes32[]"
 			}
 		],
 		"payable": false,
@@ -356,6 +356,10 @@ $(document).ready(function()
 			{
 				"name": "",
 				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"name": "PatientDocs",
@@ -369,22 +373,8 @@ $(document).ready(function()
 				"type": "bytes32"
 			},
 			{
-				"components": [
-					{
-						"name": "year",
-						"type": "uint16"
-					},
-					{
-						"name": "day",
-						"type": "uint8"
-					},
-					{
-						"name": "month",
-						"type": "uint8"
-					}
-				],
-				"name": "dateofupload",
-				"type": "tuple"
+				"name": "date",
+				"type": "bytes32"
 			},
 			{
 				"components": [
@@ -453,7 +443,7 @@ $(document).ready(function()
 	}
 ];
 MedicoContract=web3.eth.contract(abi);
-Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
+Medical=MedicoContract.at("0x1923a2334e5045dd033438e35df19034de04704f");
 
  if (web3.eth.accounts[0] == undefined) {
      swal('hsbhash', 'Please make sure  you are logged in to your metamask account', 'warning');

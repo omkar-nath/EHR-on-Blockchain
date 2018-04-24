@@ -72,7 +72,7 @@ router.post("/sendIpfsHash",function(req,res,next)
   from: 'medicochain800@gmail.com', 
   to: 'omilpsablock@gmail.com', 
   subject: 'File Hash', // Subject line
-  html: '<p><br>Please click the below link if you agree <br><a href='+ipfsUrl+'> File upload  </a></p>'
+  html: '<p><br>By clicking on the given link you can encrypt and store your EHR document and storing it in blockchain<br><a href='+ipfsUrl+'> Store it in blockchain  </a></p>'
   
 };
   transporter.sendMail(mailOptions, function (err, info) {
@@ -93,4 +93,58 @@ router.post("/sendIpfsHash",function(req,res,next)
     });
   }
 })
+router.post("/askdecrypted",function(req,res,next)
+{
+     if (req.xhr || req.accepts('json,html') === 'json')
+  {
+     var doc_email=req.body.doc_email;
+     var encrypted_hash=req.body.encrypted_hash;
+     var redirect=req.body.patient_url;
+     console.log(doc_email);
+     console.log(encrypted_hash);
+     console.log(redirect);
+     redirect+="/"+"encrypted"+"/"+encrypted_hash;
+   console.log(redirect);
+    var transporter = nodemailer.createTransport({
+          service: 'gmail',
+    auth: {
+              user: 'medicochain800@gmail.com',
+              pass: 'securepassword',
+              proxy: process.env.http_proxy
+          }
+
+});
+           const mailOptions = {
+  from: 'medicochain800@gmail.com', 
+  to: 'omilpsablock@gmail.com', 
+  subject: 'Reading permission', // Subject line
+  html: '<p> '+encrypted_hash +' </p><h7>Copy above hash and click below link<br><a href='+redirect+'> Decrypt and send  </a></h7>'
+  
+};
+  transporter.sendMail(mailOptions, function (err, info) {
+   if(err)
+     console.log(err)
+   else
+   {
+     res.json({
+      success:"true",
+      msg:"Mail sent to patient for EHR reading request"
+     });
+   }
+
+     });
+   
+
+
+
+
+
+
+
+
+
+
+    
+  }
+});
 module.exports = router;

@@ -95,16 +95,8 @@ $(document).ready(function() {
                 "type": "bytes32"
             },
             {
-                "name": "year",
-                "type": "uint16"
-            },
-            {
-                "name": "day",
-                "type": "uint8"
-            },
-            {
-                "name": "month",
-                "type": "uint8"
+                "name": "date",
+                "type": "bytes32"
             },
             {
                 "name": "first",
@@ -260,19 +252,27 @@ $(document).ready(function() {
                 "type": "address"
             }
         ],
-        "name": "getEncryptedHash",
+        "name": "getEHRDetails",
         "outputs": [
             {
                 "name": "",
-                "type": "bytes32"
+                "type": "bytes32[]"
             },
             {
                 "name": "",
-                "type": "bytes32"
+                "type": "bytes32[]"
             },
             {
                 "name": "",
-                "type": "bytes32"
+                "type": "bytes32[]"
+            },
+            {
+                "name": "",
+                "type": "bytes32[]"
+            },
+            {
+                "name": "",
+                "type": "bytes32[]"
             }
         ],
         "payable": false,
@@ -365,6 +365,10 @@ $(document).ready(function() {
             {
                 "name": "",
                 "type": "address"
+            },
+            {
+                "name": "",
+                "type": "uint256"
             }
         ],
         "name": "PatientDocs",
@@ -378,22 +382,8 @@ $(document).ready(function() {
                 "type": "bytes32"
             },
             {
-                "components": [
-                    {
-                        "name": "year",
-                        "type": "uint16"
-                    },
-                    {
-                        "name": "day",
-                        "type": "uint8"
-                    },
-                    {
-                        "name": "month",
-                        "type": "uint8"
-                    }
-                ],
-                "name": "dateofupload",
-                "type": "tuple"
+                "name": "date",
+                "type": "bytes32"
             },
             {
                 "components": [
@@ -462,9 +452,189 @@ $(document).ready(function() {
     }
 ];
     MedicoContract = web3.eth.contract(abi);
-    Medical = MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
+    Medical = MedicoContract.at("0x1923a2334e5045dd033438e35df19034de04704f");
 
- 
+   $('#show_docs').click(function(event)
+   {
+    if (web3.eth.accounts[0] == undefined) {
+     swal('', 'Please make sure  you are logged in to your metamask account', 'warning');
+ }
+ else
+ {
+       event.preventDefault();
+       let username=$('#patient_user_read').val();
+       if(username=='')
+       {
+        swal('Oops','Please enter the username','error');
+    }
+    else
+    {
+        var patient_username_is=username;
+        var curr_url=window.location.href;
+        curr_url=curr_url.split("/");
+        console.log(curr_url);
+        var doc_username=curr_url[4].substring(0,curr_url[4].indexOf("$"));
+        var doctor_request=curr_url[4].substring(0,curr_url[4].indexOf("$"));
+        console.log(doc_username);
+        Medical.getDoctorAddress(doc_username,function(err,addre)
+        {
+            if(!err)
+            {
+               if(web3.eth.accounts[0]==addre)
+               {
+                   Medical.getPatientAddress(username,function(err,result)
+        {
+            if(!err)
+            {
+                var patient_address=result;
+                Medical.checkstatusdoc(patient_address,function(err,re)
+                {
+                    if(!err)
+                    {
+                        if(re==true)
+                        {
+                          //swal('Sweet ','You can see the patient"s documents','success');
+                          Medical.getEHRDetails(patient_address,function(err,result_array)
+                          {
+                              if(!err)
+                              {
+                                if(result_array.length<=0)
+                                    swal('Sorry','This patient has no records to show','error');
+                                else
+                                {
+                                     $('#ehr_list').css("display","block");
+                                      for(var j=0;j<result_array[0].length;j++)
+                                        {
+                                            var doc_username=web3.toAscii(result_array[0][j]);
+                                            console.log(doc_username);
+                                            var dateofupload=web3.toAscii(result_array[1][j]);
+                                            console.log(dateofupload);
+                                            var file=web3.toAscii(result_array[2][j]+result_array[3][j]+result_array[4][j]);
+                                            var list_items=$('<li></li>');
+                                              var doc_usr=$('<code> </code> ');
+                                              doc_usr.html(doc_username);
+                                            var dateof=$('<code> </code>');
+                                            dateof.html(dateofupload);
+                                            var but=$('<button type="button"  class="btn btn-primary">Primary</button>');
+                                            but.attr("id",file);
+                                            but.html('Read EHR');
+                                            var filehash=$('<code></code>');
+                                            filehash.html(file);
+                                             list_items.append('<h6>Uploaded by :</h6>').append(doc_usr);
+                                             list_items.append('<h6>Date of upload</h6>').append(dateof);
+                                             list_items.append('<h6>File Hash<h6>').append(filehash);
+                                             list_items.append('<br>');
+                                             list_items.append(but);
+
+                                          
+
+                                        
+                                                $('#ehr_list').append(list_items);
+                                           $('.btn-primary').click(function()
+                                           {  
+                                              var ipfs_file_encrypted=$(this).attr('id');
+                                              //swal(ipfs_file_encrypted);
+
+                                              Medical.getDoctorAddress(doctor_request,function(err,ad)
+                                              {
+                                                  if(!err)
+                                                  {
+                                                     Medical.getDoctor(ad,function(err,doc_details)
+                                                     {
+                                                        if(!err)
+                                                        {
+                                                            Medical.getPatientAddress(patient_username_is,function(err,p_addr)
+                                                            {
+                                                                if(!err)
+                                                                {
+                                                                 var make_url=window.location.href;
+                                                                
+                                                            make_url=make_url.split("/");
+                                                            console.log(make_url);
+                                                            var doc_url=make_url[4].substring(0,make_url[4].indexOf("$"));
+                                                            var patient_redirect="http://localhost:3000/patient";
+                                                            patient_redirect+="/"+patient_username_is+"$"+p_addr.substring(0,5)+"/"+doc_url;
+                                                            var data={
+                                                                doc_email:web3.toAscii(doc_details[0]),
+                                                                encrypted_hash:ipfs_file_encrypted,
+                                                                patient_url:patient_redirect
+                                                            };
+                                                            var Url=window.location.href;
+                                                            Url+="/"+"askdecrypted";
+                                                            $.ajax({
+                                                                type:"POST",
+                                                                data:data,
+                                                                url:Url,
+                                                                dataType:"JSON",
+                                                                success:function(msg)
+                                                                {
+                                                                     if(msg.success)
+                                                                        {
+                                                                             swal('Here');
+                                                                        }
+                                                                },
+                                                                error:function(err)
+                                                                {
+                                                                    swal('Oops','Error occured','error');
+
+                                                                }
+                                                            });
+                                                        }
+                                                                 
+                                                            });
+                                                           
+                                                        }
+                                                        else
+                                                        {
+                                                            swal('Oops','Doctor email cannot retrievd','error');
+                                                        }
+                                                     })
+                                                  }
+                                                  else
+                                                    swal('Oops','Doctor"s address not retrieved','error');
+                                              });
+                                           })
+                                              
+
+
+
+                                        }
+                                    
+                                   
+                                }
+                              }
+                          })
+                        }
+                        else
+                        {
+                            swal('Oops','You don"t have access to patient"s EHR.Please request first','error');
+                        }
+
+                    }
+                    else
+                    {
+                        swal('Oops','Access Status can"t check now','error');
+                    }
+                })
+            }
+            else
+                swal('Oops','Patient address not retrieved','error');
+        })
+               }
+               else
+               {
+                swal('Oops','Please switch to your metamask account first','warning');
+               }
+            }
+            else
+            {
+                swal('Oops','Doctor"s address not retrieved','error');
+            }
+        })
+       
+    }
+}
+   });
 
 
     $('#ask').click(function(event) {

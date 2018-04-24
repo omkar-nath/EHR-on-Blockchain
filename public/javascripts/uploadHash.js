@@ -86,16 +86,8 @@ $(document).ready(function()
 				"type": "bytes32"
 			},
 			{
-				"name": "year",
-				"type": "uint16"
-			},
-			{
-				"name": "day",
-				"type": "uint8"
-			},
-			{
-				"name": "month",
-				"type": "uint8"
+				"name": "date",
+				"type": "bytes32"
 			},
 			{
 				"name": "first",
@@ -251,19 +243,27 @@ $(document).ready(function()
 				"type": "address"
 			}
 		],
-		"name": "getEncryptedHash",
+		"name": "getEHRDetails",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "bytes32[]"
 			},
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "bytes32[]"
 			},
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "bytes32[]"
+			},
+			{
+				"name": "",
+				"type": "bytes32[]"
+			},
+			{
+				"name": "",
+				"type": "bytes32[]"
 			}
 		],
 		"payable": false,
@@ -356,6 +356,10 @@ $(document).ready(function()
 			{
 				"name": "",
 				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"name": "PatientDocs",
@@ -369,22 +373,8 @@ $(document).ready(function()
 				"type": "bytes32"
 			},
 			{
-				"components": [
-					{
-						"name": "year",
-						"type": "uint16"
-					},
-					{
-						"name": "day",
-						"type": "uint8"
-					},
-					{
-						"name": "month",
-						"type": "uint8"
-					}
-				],
-				"name": "dateofupload",
-				"type": "tuple"
+				"name": "date",
+				"type": "bytes32"
 			},
 			{
 				"components": [
@@ -453,7 +443,7 @@ $(document).ready(function()
 	}
 ];
 MedicoContract=web3.eth.contract(abi);
-Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
+Medical=MedicoContract.at("0x1923a2334e5045dd033438e35df19034de04704f");
  if (web3.eth.accounts[0] == undefined) {
      swal('hsbhash', 'Please make sure  you are logged in to your metamask account', 'warning');
  }
@@ -467,7 +457,86 @@ Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
 
 
 
+      var current=window.location.href;
+      current=current.split("/");
+      if(current[6]=="encrypted")
+      {
+         let patient_username=current[4].substr(0,current[4].indexOf("$"));
+         Medical.getPatientAddress(patient_username,function(err,addr)
+         {
+         	if(!err)
+         	{
+                 if(web3.eth.accounts[0]==addr)
+                 {
 
+                      swal({
+        				title:'Please enter the password and encrypted hash to decrypt',
+        				html:'<input type="text" class="form-control" id="encrypted" placeholder="Enter encrypted hash"><br><input type="text" class="form-control" id="passkey" placeholder="Enter password"> </input> <br> <p class="mb-0" style="color:red"><strong>Warning:</strong> Never disclose this key. Anyone with your password can take steal any assets held in your account.Also store this password somewhere else.Loosing this will result in failure of access of your records</p>'
+
+
+        				,
+        				confirmButtonText:"Decrypt and send document",
+
+        				type:'warning'
+
+
+        			}).then((result)=>{
+        				 var passkey=$('#passkey').val();
+        				 var encrypted=$('#encrypted').val();
+        				 if(passkey==''||encrypted=='')
+        				 {
+        				 	swal('Oops','Please refresh the page and enter password','error');
+        				 	return;
+        				 }
+        				 else
+        				 {
+        				 	var make_url=current[0]+"/"+current[1]+"/"+current[2]+"/"+current[3]+"/"+current[4]+"/"+"decryptedHash";
+        				 	console.log(make_url);
+        				 	var data={
+        				 		encrypt_ipfs:encrypted,
+        				 		passkey:passkey
+        				 	};
+
+
+        				 	 $.ajax({
+        				 	 	type:"POST",
+        				 	 	url:make_url,
+        				 	 	data:data,
+        				 	 	dataType:"JSON",
+        				 	 	success:function(msg)
+        				 	 	{
+        				 	 		if(msg.success)
+        				 	 		{
+        				 	 			swal('success',msg.msg,'success');
+        				 	 		}
+        				 	 		
+        				 	 	},
+        				 	 	error:function(err)
+        				 	 	{
+        				 	 		console.log(err);
+        				 	 	}
+        				 	 })
+                     
+
+                 
+         	
+         	}
+         });
+        		}
+
+         else
+                 	swal('Oops','Please switch to your metamask account','error');
+
+      }
+      else
+         	{
+         		swal('Oops','Patient email address not retrieved','error');
+         	}
+
+  });
+}
+      else
+      {
 
 
 
@@ -482,6 +551,8 @@ Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
 
 
      	var curr_url=window.location.href;
+     	console.log(curr_url);
+
      	curr_url=curr_url.split("/");
      	console.log(curr_url);
      	var fileHash=curr_url[6];
@@ -555,7 +626,8 @@ Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
                 	console.log('Date is ',day,month,year)
                 	console.log(patient_username);
                 	console.log(doctor_username);
-                	Medical.storeIpfs.sendTransaction(doctor_username,patient_username,year,day,month,first,second,third,function(err,result)
+                	var dateofUpload=day+"/"+month+"/"+year;
+                	Medical.storeIpfs.sendTransaction(doctor_username,patient_username,dateofUpload,first,second,third,function(err,result)
                 	{
                 		if(!err)
                 		{
@@ -587,7 +659,7 @@ Medical=MedicoContract.at("0x60c2bdf3e0f91ea41fde95341e6705009de176f6");
 
 
 
-
+}
 
      	
      }
